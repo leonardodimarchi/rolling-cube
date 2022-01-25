@@ -9,22 +9,31 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate() 
     {
-        rigidBody.AddForce(0, 0, forwardForce * Time.deltaTime);
-
-        this.moveUser();
+        moveUser();
     }
 
 
     void moveUser()
     {
+        moveForward();
+        moveSidewaysAccordinglyToInput();
+    }
+
+    void moveForward()
+    {
+        rigidBody.AddForce(0, 0, forwardForce * Time.deltaTime);
+    }
+
+    void moveSidewaysAccordinglyToInput()
+    {
         if (Input.GetKey("d"))
         {
-            rigidBody.AddForce(sidewayForce * Time.deltaTime, 0, 0);
+            rigidBody.AddForce(sidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
         if (Input.GetKey("a"))
         {
-            rigidBody.AddForce(-sidewayForce * Time.deltaTime, 0, 0);
+            rigidBody.AddForce(-sidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
     }
 }
