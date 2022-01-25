@@ -9,22 +9,27 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate() 
     {
-        moveUser();
+        MoveUser();
     }
 
 
-    void moveUser()
+    void MoveUser()
     {
-        moveForward();
-        moveSidewaysAccordinglyToInput();
+        MoveForward();
+        MoveSidewaysAccordinglyToInput();
+
+        if (rigidBody.position.y < -1f)
+        {
+            FindObjectOfType<GameManager>().GameOver();
+        }
     }
 
-    void moveForward()
+    void MoveForward()
     {
         rigidBody.AddForce(0, 0, forwardForce * Time.deltaTime);
     }
 
-    void moveSidewaysAccordinglyToInput()
+    void MoveSidewaysAccordinglyToInput()
     {
         if (Input.GetKey("d"))
         {
